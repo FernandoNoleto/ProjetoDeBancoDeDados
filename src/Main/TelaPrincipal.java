@@ -2,6 +2,7 @@ package Main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -111,6 +112,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
 
         Ok_button.setText("OK");
+        Ok_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Ok_buttonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -142,6 +148,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void Ok_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ok_buttonActionPerformed
+        //Aqui é todo o código que será feito para prever os resultados
+        
+        String equipe1 = Equipe1_TextField.getText();
+        String equipe2 = Equipe2_TextField.getText();
+        
+        JOptionPane.showMessageDialog(null, equipe1+ " x  "+ equipe2);
+        
+        
+    }//GEN-LAST:event_Ok_buttonActionPerformed
 
     /**
      * @param args the command line arguments
