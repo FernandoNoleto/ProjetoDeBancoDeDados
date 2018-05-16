@@ -2,6 +2,10 @@ package Main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,6 +19,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
+        this.setLocationRelativeTo(null);
         ActionListener equipe1 = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -57,9 +62,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Primeira equipe"));
 
-        Equipe1_ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rússia", "Brasil ", "Irã ", "Japão ", "México ", "Bélgica ", "Coreia do Sul ", "Arábia Saudita ", "Alemanha ", "Inglaterra ", "Espanha ", "Nigéria ", "Costa Rica ", "Polônia ", "Egito ", "Islândia ", "Sérvia ", "França ", "Portugal ", "Argentina ", "Colômbia ", "Uruguai ", "Panamá ", "Senegal ", "Marrocos ", "Tunísia ", "Suíça ", "Croácia ", "Suécia ", "Dinamarca ", "Austrália ", "Peru" }));
+        Equipe1_ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Russia", "Brazil", "Iran", "Japan", "Mexico", "Belgium", "Korea Republic", "Saudi Arabia", "Germany", "England", "Spain", "Nigeria", "Costa Rica", "Poland", "Egypt", "Iceland", "Serbia", "France", "Portugal", "Argentina", "Colombia", "Uruguay", "Panama", "Senegal", "Morocco", "Tunisia", "Switzerland", "Croatia", "Sweden", "Denmark", "Australia", "Peru" }));
 
-        Equipe1_TextField.setText("Rússia");
+        Equipe1_TextField.setText("Russia");
         Equipe1_TextField.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -85,9 +90,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Segunda equipe"));
 
-        Equipe2_ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rússia", "Brasil ", "Irã ", "Japão ", "México ", "Bélgica ", "Coreia do Sul ", "Arábia Saudita ", "Alemanha ", "Inglaterra ", "Espanha ", "Nigéria ", "Costa Rica ", "Polônia ", "Egito ", "Islândia ", "Sérvia ", "França ", "Portugal ", "Argentina ", "Colômbia ", "Uruguai ", "Panamá ", "Senegal ", "Marrocos ", "Tunísia ", "Suíça ", "Croácia ", "Suécia ", "Dinamarca ", "Austrália ", "Peru" }));
+        Equipe2_ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Russia", "Brazil", "Iran", "Japan", "Mexico", "Belgium", "Korea Republic", "Saudi Arabia", "Germany", "England", "Spain", "Nigeria", "Costa Rica", "Poland", "Egypt", "Iceland", "Serbia", "France", "Portugal", "Argentina", "Colombia", "Uruguay", "Panama", "Senegal", "Morocco", "Tunisia", "Switzerland", "Croatia", "Sweden", "Denmark", "Australia", "Peru" }));
 
-        Equipe2_TextField.setText("Rússia");
+        Equipe2_TextField.setText("Russia");
         Equipe2_TextField.setEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -154,8 +159,65 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
         String equipe1 = Equipe1_TextField.getText();
         String equipe2 = Equipe2_TextField.getText();
+        System.out.println(equipe1);
+        System.out.println(equipe2);
         
-        JOptionPane.showMessageDialog(null, equipe1+ " x  "+ equipe2);
+        if(equipe1.equals(equipe2)){
+            JOptionPane.showMessageDialog(null, "Não escolha 2 seleções iguais seu doente mental", "Alerta", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        try (Connection con = new ConnectionFactory().getConnection()) {
+            PreparedStatement stmt = con.prepareStatement("select * from jogadores");
+            ResultSet rs = stmt.executeQuery();
+            
+            int time1 = 0;
+            int time2 = 0;
+            int count1 = 0;
+            int count2 = 0;
+            
+            
+            while (rs.next()) {
+                String aux = rs.getString("selecao");
+//                System.out.println("------------------------------");
+//                System.out.println("Jogador:. "+rs.getString("nome"));
+//                System.out.println("Selecao:. "+rs.getString("selecao"));
+//                System.out.println("Overall:. "+rs.getInt("overall"));
+//                System.out.println("Posição:. "+rs.getString("posicao"));
+                if(equipe1.equals(aux)){
+                    count1++;
+                    time1 += rs.getInt("overall");
+                }
+                if(equipe2.equals(aux)){
+                    count2++;
+                    time2 += rs.getInt("overall");
+                }
+            }
+            
+            float media_1 = 0;
+            float media_2 = 0;
+            
+            try{media_1 = (float)time1/count1;}catch(Exception e){System.out.println(e);}
+            try{media_2 = (float)time2/count2;}catch(Exception e){System.out.println(e);}
+            
+            if(media_1 >= media_2){
+                JOptionPane.showMessageDialog(null, equipe1+" vence!");
+                System.out.println(equipe1+ " vence!");
+            }
+            else{
+                JOptionPane.showMessageDialog(null, equipe2+" vence!");
+                System.out.println(equipe2+ " vence!");
+            }
+            
+            System.out.println("Media "+equipe1+":. "+media_1);
+            System.out.println("Media "+equipe2+":. "+media_2);
+            
+            
+            rs.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            System.out.println("ERRO!"+ ex);
+        }
         
         
     }//GEN-LAST:event_Ok_buttonActionPerformed
