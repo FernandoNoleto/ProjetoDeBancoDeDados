@@ -1,12 +1,11 @@
 package Main;
 
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.net.URL;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,6 +18,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
+        URL url = this.getClass().getResource("bola.png");
+        Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
+        this.setIconImage(imagemTitulo); 
+       
         this.setLocationRelativeTo(null);
         ActionListener equipe1 = new ActionListener() {
             @Override
@@ -59,6 +62,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         Ok_button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Rumo ao HEXA");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Primeira equipe"));
 
@@ -159,65 +163,98 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
         String equipe1 = Equipe1_TextField.getText();
         String equipe2 = Equipe2_TextField.getText();
-        System.out.println(equipe1);
-        System.out.println(equipe2);
-        
-        if(equipe1.equals(equipe2)){
-            JOptionPane.showMessageDialog(null, "Não escolha 2 seleções iguais seu doente mental", "Alerta", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        
-        try (Connection con = new ConnectionFactory().getConnection()) {
-            PreparedStatement stmt = con.prepareStatement("select * from jogadores");
-            ResultSet rs = stmt.executeQuery();
-            
-            int time1 = 0;
-            int time2 = 0;
-            int count1 = 0;
-            int count2 = 0;
-            
-            
-            while (rs.next()) {
-                String aux = rs.getString("selecao");
-//                System.out.println("------------------------------");
-//                System.out.println("Jogador:. "+rs.getString("nome"));
-//                System.out.println("Selecao:. "+rs.getString("selecao"));
-//                System.out.println("Overall:. "+rs.getInt("overall"));
-//                System.out.println("Posição:. "+rs.getString("posicao"));
-                if(equipe1.equals(aux)){
-                    count1++;
-                    time1 += rs.getInt("overall");
-                }
-                if(equipe2.equals(aux)){
-                    count2++;
-                    time2 += rs.getInt("overall");
-                }
-            }
-            
-            float media_1 = 0;
-            float media_2 = 0;
-            
-            try{media_1 = (float)time1/count1;}catch(Exception e){System.out.println(e);}
-            try{media_2 = (float)time2/count2;}catch(Exception e){System.out.println(e);}
-            
-            if(media_1 >= media_2){
-                JOptionPane.showMessageDialog(null, equipe1+" vence!");
-                System.out.println(equipe1+ " vence!");
-            }
-            else{
-                JOptionPane.showMessageDialog(null, equipe2+" vence!");
-                System.out.println(equipe2+ " vence!");
-            }
-            
-            System.out.println("Media "+equipe1+":. "+media_1);
-            System.out.println("Media "+equipe2+":. "+media_2);
-            
-            
-            rs.close();
-            stmt.close();
+
+        Controller c = new Controller();
+        try {
+            c.LerBanco(equipe1, equipe2);
         } catch (SQLException ex) {
-            System.out.println("ERRO!"+ ex);
+            System.err.println("ERRO:. "+ex);
         }
+            
+//        String equipe1 = Equipe1_TextField.getText();
+//        String equipe2 = Equipe2_TextField.getText();
+//        System.out.println(equipe1);
+//        System.out.println(equipe2);
+//        
+//        if(equipe1.equals(equipe2)){
+//            JOptionPane.showMessageDialog(null, "Não escolha 2 seleções iguais seu doente mental", "Alerta", JOptionPane.ERROR_MESSAGE);
+//            return;
+//        }
+//        
+//        try (Connection con = new ConnectionFactory().getConnection()) {
+//            PreparedStatement stmt = con.prepareStatement("select * from equipes.jogadores");
+//            ResultSet rs = stmt.executeQuery();
+//            
+//            int time1 = 0;
+//            int time2 = 0;
+//            int count1 = 0;
+//            int count2 = 0;
+//            int ranking1 = 0;
+//            int ranking2 = 0;
+//
+//            
+//            while (rs.next()) {
+//                String aux = rs.getString("selecao");
+////                System.out.println("------------------------------");
+////                System.out.println("Jogador:. "+rs.getString("nome"));
+////                System.out.println("Selecao:. "+rs.getString("selecao"));
+////                System.out.println("Overall:. "+rs.getInt("overall"));
+////                System.out.println("Posição:. "+rs.getString("posicao"));
+//                
+//                if(equipe1.equals(aux)){
+//                    count1++;
+//                    time1 += rs.getInt("overall");
+//                    ranking1 = rs.getInt("ranking_fifa");
+//                }
+//                if(equipe2.equals(aux)){
+//                    count2++;
+//                    time2 += rs.getInt("overall");
+//                    ranking2 = rs.getInt("ranking_fifa");
+//                }
+//            }
+//            
+//            float media_1 = 0;
+//            float media_2 = 0;
+//            
+//            try{media_1 = (float)time1/count1;}catch(Exception e){System.out.println(e);}
+//            try{media_2 = (float)time2/count2;}catch(Exception e){System.out.println(e);}
+//            
+//            float total_1 = (float) ((media_1 * 0.5) + ((100 - ranking1) * 0.5));
+//            float total_2 = (float) ((media_2 * 0.5) + ((100 - ranking2) * 0.5));
+//
+//            
+//            /*
+//            if(media_1 >= media_2){
+//                JOptionPane.showMessageDialog(null, equipe1+" vence!");
+//                System.out.println(equipe1+ " vence!");
+//            }
+//            else{
+//                JOptionPane.showMessageDialog(null, equipe2+" vence!");
+//                System.out.println(equipe2+ " vence!");
+//            }
+//            */
+//            System.out.println("total1:. "+total_1);
+//            System.out.println("total2:. "+total_2);
+//            
+//            if(total_1 >= total_2){
+//                JOptionPane.showMessageDialog(null, equipe1+" vence!");    
+//                System.out.println(equipe1+ " vence!");
+//            }
+//            else{
+//                JOptionPane.showMessageDialog(null, equipe2+" vence!");
+//                System.out.println(equipe2+ " vence!");
+//            }
+//            
+//            System.out.println("Media "+equipe1+":. "+media_1);
+//            System.out.println("Media "+equipe2+":. "+media_2);
+//
+//            
+//            rs.close();
+//            stmt.close();
+//        } catch (SQLException ex) {
+//            System.out.println("ERRO!"+ ex);
+//        }
+        
         
         
     }//GEN-LAST:event_Ok_buttonActionPerformed
