@@ -66,7 +66,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Primeira equipe"));
 
-        Equipe1_ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Russia", "Brazil", "Iran", "Japan", "Mexico", "Belgium", "Korea Republic", "Saudi Arabia", "Germany", "England", "Spain", "Nigeria", "Costa Rica", "Poland", "Egypt", "Iceland", "Serbia", "France", "Portugal", "Argentina", "Colombia", "Uruguay", "Panama", "Senegal", "Morocco", "Tunisia", "Switzerland", "Croatia", "Sweden", "Denmark", "Australia", "Peru" }));
+        Equipe1_ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Russia", "Brazil", "Iran", "Japan", "Mexico", "Belgium", "Korea Republic", "Saudi Arabia", "Germany", "England", "Spain", "Nigeria", "Costa Rica", "Poland", "Egypt", "Iceland", "Serbia", "France", "Portugal", "Argentina", "Colombia", "Uruguay", "Panama", "Senegal", "Marrocos", "Tunisia", "Switzerland", "Croatia", "Sweden", "Denmark", "Australia", "Peru" }));
 
         Equipe1_TextField.setText("Russia");
         Equipe1_TextField.setEnabled(false);
@@ -94,7 +94,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Segunda equipe"));
 
-        Equipe2_ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Russia", "Brazil", "Iran", "Japan", "Mexico", "Belgium", "Korea Republic", "Saudi Arabia", "Germany", "England", "Spain", "Nigeria", "Costa Rica", "Poland", "Egypt", "Iceland", "Serbia", "France", "Portugal", "Argentina", "Colombia", "Uruguay", "Panama", "Senegal", "Morocco", "Tunisia", "Switzerland", "Croatia", "Sweden", "Denmark", "Australia", "Peru" }));
+        Equipe2_ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Russia", "Brazil", "Iran", "Japan", "Mexico", "Belgium", "Korea Republic", "Saudi Arabia", "Germany", "England", "Spain", "Nigeria", "Costa Rica", "Poland", "Egypt", "Iceland", "Serbia", "France", "Portugal", "Argentina", "Colombia", "Uruguay", "Panama", "Senegal", "Morrocos", "Tunisia", "Switzerland", "Croatia", "Sweden", "Denmark", "Australia", "Peru" }));
 
         Equipe2_TextField.setText("Russia");
         Equipe2_TextField.setEnabled(false);
