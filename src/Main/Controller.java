@@ -31,8 +31,8 @@ public class Controller {
     
     public boolean Simular(String equipe1, String equipe2) throws SQLException{
         
-        System.out.println(equipe1);
-        System.out.println(equipe2);
+        //System.out.println(equipe1);
+        //System.out.println(equipe2);
         boolean vencedor = true;
         
         if(equipe1.equals(equipe2)){
@@ -84,22 +84,22 @@ public class Controller {
             float total_2 = (float) ((media_2 * 0.7) + ((100 - ranking2) * 0.3));
             
             
-            System.out.println("Total "+equipe1+":. "+total_1);
-            System.out.println("Total "+equipe2+":. "+total_2);
+            //System.out.println("Total "+equipe1+":. "+total_1);
+            //System.out.println("Total "+equipe2+":. "+total_2);
             
             //15% de aleatoriedade
             if(total_1 >= total_2 && !Zebra()){
-                JOptionPane.showMessageDialog(null, equipe1+" vence!");    
-                System.out.println(equipe1+ " vence!");
+                //JOptionPane.showMessageDialog(null, equipe1+" vence!");    
+                //System.out.println(equipe1+ " vence!");
             }
             else{
-                JOptionPane.showMessageDialog(null, equipe2+" vence!");
-                System.out.println(equipe2+ " vence!");
+                //JOptionPane.showMessageDialog(null, equipe2+" vence!");
+                //System.out.println(equipe2+ " vence!");
                 vencedor = false;
             }
             
-            System.out.println("Media dos jogadores "+equipe1+":. "+media_1);
-            System.out.println("Media dos jogadores "+equipe2+":. "+media_2);
+            //System.out.println("Media dos jogadores "+equipe1+":. "+media_1);
+            //System.out.println("Media dos jogadores "+equipe2+":. "+media_2);
             
             
             rs.close();
@@ -114,8 +114,8 @@ public class Controller {
     
     public String Simular(String equipe1, String equipe2, int gamba) throws SQLException{
         
-        System.out.println(equipe1);
-        System.out.println(equipe2);
+        //System.out.println(equipe1);
+        //System.out.println(equipe2);
         
         String vencedor = equipe1;
         
@@ -168,22 +168,22 @@ public class Controller {
             float total_2 = (float) ((media_2 * 0.7) + ((100 - ranking2) * 0.3));
             
             
-            System.out.println("Total "+equipe1+":. "+total_1);
-            System.out.println("Total "+equipe2+":. "+total_2);
+            //System.out.println("Total "+equipe1+":. "+total_1);
+            //System.out.println("Total "+equipe2+":. "+total_2);
             
             //15% de aleatoriedade
             if(total_1 >= total_2 && !Zebra()){
-                JOptionPane.showMessageDialog(null, equipe1+" vence!");    
-                System.out.println(equipe1+ " vence!");
+                //JOptionPane.showMessageDialog(null, equipe1+" vence!");    
+                //System.out.println(equipe1+ " vence!");
             }
             else{
-                JOptionPane.showMessageDialog(null, equipe2+" vence!");
-                System.out.println(equipe2+ " vence!");
+                //JOptionPane.showMessageDialog(null, equipe2+" vence!");
+                //System.out.println(equipe2+ " vence!");
                 vencedor = equipe2;
             }
             
-            System.out.println("Media dos jogadores "+equipe1+":. "+media_1);
-            System.out.println("Media dos jogadores "+equipe2+":. "+media_2);
+            //System.out.println("Media dos jogadores "+equipe1+":. "+media_1);
+            //System.out.println("Media dos jogadores "+equipe2+":. "+media_2);
             
             
             rs.close();
@@ -209,8 +209,9 @@ public class Controller {
     
 
     public static <K, V extends Comparable<? super V>> Map<K, V> ordenarInversamente
-        (Map<K, V> map) {
-        return map.entrySet()
+    (Map<K, V> map) {
+
+    return map.entrySet()
             .stream()
             .sorted(Map.Entry.<K, V> comparingByValue().reversed())
             // Type here -----^ reversed() here -------^
@@ -220,13 +221,9 @@ public class Controller {
                     (e1, e2) -> e1,
                     LinkedHashMap::new
             ));
-    }
+}
 
-    public String simularCopaInteria(){
-        
-        return "";
-        
-    }
+
     
     //Retorna uma lista com os 2 primeiros colocados do grupo A
     public ArrayList<String> grupoA() throws SQLException{
@@ -280,9 +277,14 @@ public class Controller {
         Map<String,Integer> classificacaoFinal = ordenarInversamente(classificacao);
         
         ArrayList<String> classificados = new ArrayList<>();
-        classificados.add(classificacao.entrySet().iterator().next().getKey());
-        classificacaoFinal.remove(classificacao.entrySet().iterator().next().getKey());
-        classificados.add(classificacao.entrySet().iterator().next().getKey());
+        
+        String clas = classificacaoFinal.entrySet().iterator().next().getKey();
+        classificados.add(clas);
+        classificacaoFinal.remove(clas);
+        clas = classificacaoFinal.entrySet().iterator().next().getKey();
+        classificados.add(clas);
+        
+        System.out.println(classificados);
         
         return classificados;
     }
@@ -339,9 +341,14 @@ public class Controller {
         Map<String,Integer> classificacaoFinal = ordenarInversamente(classificacao);
         
         ArrayList<String> classificados = new ArrayList<>();
-        classificados.add(classificacao.entrySet().iterator().next().getKey());
-        classificacaoFinal.remove(classificacao.entrySet().iterator().next().getKey());
-        classificados.add(classificacao.entrySet().iterator().next().getKey());
+        
+        String clas = classificacaoFinal.entrySet().iterator().next().getKey();
+        classificados.add(clas);
+        classificacaoFinal.remove(clas);
+        clas = classificacaoFinal.entrySet().iterator().next().getKey();
+        classificados.add(clas);
+        
+        System.out.println(classificados);
         
         return classificados;
     }
@@ -398,9 +405,14 @@ public class Controller {
         Map<String,Integer> classificacaoFinal = ordenarInversamente(classificacao);
 
         ArrayList<String> classificados = new ArrayList<>();
-        classificados.add(classificacao.entrySet().iterator().next().getKey());
-        classificacaoFinal.remove(classificacao.entrySet().iterator().next().getKey());
-        classificados.add(classificacao.entrySet().iterator().next().getKey());
+        
+        String clas = classificacaoFinal.entrySet().iterator().next().getKey();
+        classificados.add(clas);
+        classificacaoFinal.remove(clas);
+        clas = classificacaoFinal.entrySet().iterator().next().getKey();
+        classificados.add(clas);
+        
+        System.out.println(classificados);
 
         return classificados;
     }
@@ -457,9 +469,14 @@ public class Controller {
         Map<String,Integer> classificacaoFinal = ordenarInversamente(classificacao);
 
         ArrayList<String> classificados = new ArrayList<>();
-        classificados.add(classificacao.entrySet().iterator().next().getKey());
-        classificacaoFinal.remove(classificacao.entrySet().iterator().next().getKey());
-        classificados.add(classificacao.entrySet().iterator().next().getKey());
+        
+        String clas = classificacaoFinal.entrySet().iterator().next().getKey();
+        classificados.add(clas);
+        classificacaoFinal.remove(clas);
+        clas = classificacaoFinal.entrySet().iterator().next().getKey();
+        classificados.add(clas);
+        
+        System.out.println(classificados);
 
         return classificados;
     }
@@ -516,9 +533,14 @@ public class Controller {
         Map<String,Integer> classificacaoFinal = ordenarInversamente(classificacao);
 
         ArrayList<String> classificados = new ArrayList<>();
-        classificados.add(classificacao.entrySet().iterator().next().getKey());
-        classificacaoFinal.remove(classificacao.entrySet().iterator().next().getKey());
-        classificados.add(classificacao.entrySet().iterator().next().getKey());
+        
+        String clas = classificacaoFinal.entrySet().iterator().next().getKey();
+        classificados.add(clas);
+        classificacaoFinal.remove(clas);
+        clas = classificacaoFinal.entrySet().iterator().next().getKey();
+        classificados.add(clas);
+        
+        System.out.println(classificados);
 
         return classificados;
     }
@@ -575,9 +597,14 @@ public class Controller {
         Map<String,Integer> classificacaoFinal = ordenarInversamente(classificacao);
 
         ArrayList<String> classificados = new ArrayList<>();
-        classificados.add(classificacao.entrySet().iterator().next().getKey());
-        classificacaoFinal.remove(classificacao.entrySet().iterator().next().getKey());
-        classificados.add(classificacao.entrySet().iterator().next().getKey());
+        
+        String clas = classificacaoFinal.entrySet().iterator().next().getKey();
+        classificados.add(clas);
+        classificacaoFinal.remove(clas);
+        clas = classificacaoFinal.entrySet().iterator().next().getKey();
+        classificados.add(clas);
+        
+        System.out.println(classificados);
 
         return classificados;
     }
@@ -634,9 +661,14 @@ public class Controller {
         Map<String,Integer> classificacaoFinal = ordenarInversamente(classificacao);
 
         ArrayList<String> classificados = new ArrayList<>();
-        classificados.add(classificacao.entrySet().iterator().next().getKey());
-        classificacaoFinal.remove(classificacao.entrySet().iterator().next().getKey());
-        classificados.add(classificacao.entrySet().iterator().next().getKey());
+        
+        String clas = classificacaoFinal.entrySet().iterator().next().getKey();
+        classificados.add(clas);
+        classificacaoFinal.remove(clas);
+        clas = classificacaoFinal.entrySet().iterator().next().getKey();
+        classificados.add(clas);
+        
+        System.out.println(classificados);
 
         return classificados;
     }
@@ -693,9 +725,14 @@ public class Controller {
         Map<String,Integer> classificacaoFinal = ordenarInversamente(classificacao);
 
         ArrayList<String> classificados = new ArrayList<>();
-        classificados.add(classificacao.entrySet().iterator().next().getKey());
-        classificacaoFinal.remove(classificacao.entrySet().iterator().next().getKey());
-        classificados.add(classificacao.entrySet().iterator().next().getKey());
+        
+        String clas = classificacaoFinal.entrySet().iterator().next().getKey();
+        classificados.add(clas);
+        classificacaoFinal.remove(clas);
+        clas = classificacaoFinal.entrySet().iterator().next().getKey();
+        classificados.add(clas);
+        
+        System.out.println(classificados);
 
         return classificados;
     }
@@ -735,24 +772,115 @@ public class Controller {
     
     
     public ArrayList<String> quartasDeFinal(
-            ArrayList<String> clasGrupoA,
-            ArrayList<String> clasGrupoB,
-            ArrayList<String> clasGrupoC,
-            ArrayList<String> clasGrupoD
+            String clasOitavas1,
+            String clasOitavas2,
+            String clasOitavas3,
+            String clasOitavas4,
+            String clasOitavas5,
+            String clasOitavas6,
+            String clasOitavas7,
+            String clasOitavas8
     ) throws SQLException{
         ArrayList<String> classificados = new ArrayList<>();
         
         //Quartas 1
-        classificados.add(Simular(clasGrupoA.get(0), clasGrupoB.get(1), 0));
+        classificados.add(Simular(clasOitavas1, clasOitavas2, 0));
         //Quartas 2
-        classificados.add(Simular(clasGrupoA.get(1), clasGrupoB.get(0), 0));
+        classificados.add(Simular(clasOitavas3, clasOitavas4, 0));
         //Quartas 3
-        classificados.add(Simular(clasGrupoC.get(0), clasGrupoD.get(1), 0));
+        classificados.add(Simular(clasOitavas5, clasOitavas6, 0));
         //Quartas 4
-        classificados.add(Simular(clasGrupoC.get(1), clasGrupoD.get(0), 0));
+        classificados.add(Simular(clasOitavas7, clasOitavas8, 0));
         
         
         return classificados;
+    }
+    
+    
+    public ArrayList<String> semiFinal(
+            String clasQuartas1,
+            String clasQuartas2,
+            String clasQuartas3,
+            String clasQuartas4
+    ) throws SQLException{
+        ArrayList<String> classificados = new ArrayList<>();
+        
+        //Semi-final 1
+        classificados.add(Simular(clasQuartas1, clasQuartas2, 0));
+        //Semi-final 2
+        classificados.add(Simular(clasQuartas3, clasQuartas4, 0));
+        
+        
+        
+        return classificados;
+    }
+    
+    public String Final(
+            String clasSemi1,
+            String clasSemi2
+    ) throws SQLException{
+        String campeao;
+        
+        //Final
+        campeao = Simular(clasSemi1, clasSemi2, 0);
+        return campeao;
+    }
+    
+    public String simularCopaInteria() throws SQLException{
+        
+        ArrayList<String> classificadosGrupoA = grupoA();
+        ArrayList<String> classificadosGrupoB = grupoB();
+        ArrayList<String> classificadosGrupoC = grupoC();
+        ArrayList<String> classificadosGrupoD = grupoD();
+        ArrayList<String> classificadosGrupoE = grupoE();
+        ArrayList<String> classificadosGrupoF = grupoF();
+        ArrayList<String> classificadosGrupoG = grupoG();
+        ArrayList<String> classificadosGrupoH = grupoH();
+        
+//        System.out.println(classificadosGrupoA);
+//        System.out.println(classificadosGrupoB);
+//        System.out.println(classificadosGrupoC);
+//        System.out.println(classificadosGrupoD);
+//        System.out.println(classificadosGrupoE);
+//        System.out.println(classificadosGrupoF);
+//        System.out.println(classificadosGrupoG);
+//        System.out.println(classificadosGrupoH);
+        
+        
+        //return "";
+        
+        ArrayList<String> classficadosOitavas = oitavasDeFinal(
+                classificadosGrupoA,
+                classificadosGrupoB,
+                classificadosGrupoC,
+                classificadosGrupoD,
+                classificadosGrupoE,
+                classificadosGrupoF,
+                classificadosGrupoG,
+                classificadosGrupoH);
+        
+        ArrayList<String> classificadosQuartas = quartasDeFinal(
+                classficadosOitavas.get(0),
+                classficadosOitavas.get(1),
+                classficadosOitavas.get(2),
+                classficadosOitavas.get(3),
+                classficadosOitavas.get(4),
+                classficadosOitavas.get(5),
+                classficadosOitavas.get(6),
+                classficadosOitavas.get(7));
+        
+        ArrayList<String> semiFinais = semiFinal(
+                classificadosQuartas.get(0),
+                classificadosQuartas.get(1),
+                classificadosQuartas.get(2),
+                classificadosQuartas.get(3));
+        
+        String campeao = Final(semiFinais.get(0), semiFinais.get(1));
+        
+        JOptionPane.showMessageDialog(null, "Campeão:. "+ campeao);
+        
+        return campeao;
+        
     }
     
     
