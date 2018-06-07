@@ -18,6 +18,11 @@ import javax.swing.JOptionPane;
  * @author fernando
  */
 public class Controller {
+    
+    public Controller(){
+        
+    }
+    
     private void AcessarBanco(){
         ConnectionFactory conexao = new ConnectionFactory();
         try{
@@ -828,6 +833,8 @@ public class Controller {
     
     public String simularCopaInteria() throws SQLException{
         
+        SimulacaoCopa s = new SimulacaoCopa();
+        
         ArrayList<String> classificadosGrupoA = grupoA();
         ArrayList<String> classificadosGrupoB = grupoB();
         ArrayList<String> classificadosGrupoC = grupoC();
@@ -859,6 +866,18 @@ public class Controller {
                 classificadosGrupoG,
                 classificadosGrupoH);
         
+        s.voitavas1 = classficadosOitavas.get(0);
+        s.voitavas2 = classficadosOitavas.get(1);
+        s.voitavas3 = classficadosOitavas.get(2);
+        s.voitavas4 = classficadosOitavas.get(3);
+        s.voitavas5 = classficadosOitavas.get(4);
+        s.voitavas6 = classficadosOitavas.get(5);
+        s.voitavas7 = classficadosOitavas.get(6);
+        s.voitavas8 = classficadosOitavas.get(7);
+        
+        System.out.println("lasjbgjhegbjgbkegfbkjfbgkshdfgblkeh");
+        
+        
         ArrayList<String> classificadosQuartas = quartasDeFinal(
                 classficadosOitavas.get(0),
                 classficadosOitavas.get(1),
@@ -869,15 +888,25 @@ public class Controller {
                 classficadosOitavas.get(6),
                 classficadosOitavas.get(7));
         
+        s.vquartas1 = classificadosQuartas.get(0);
+        s.vquartas2 = classificadosQuartas.get(1);
+        s.vquartas3 = classificadosQuartas.get(2);
+        s.vquartas4 = classificadosQuartas.get(3);
+        
         ArrayList<String> semiFinais = semiFinal(
                 classificadosQuartas.get(0),
                 classificadosQuartas.get(1),
                 classificadosQuartas.get(2),
                 classificadosQuartas.get(3));
         
+        s.vsemi1 = semiFinais.get(0);
+        s.vsemi2 = semiFinais.get(1);
+        
         String campeao = Final(semiFinais.get(0), semiFinais.get(1));
         
-        JOptionPane.showMessageDialog(null, "Campeão:. "+ campeao);
+        s.camp = campeao;
+        
+        //JOptionPane.showMessageDialog(null, "Campeão:. "+ campeao);
         
         return campeao;
         
