@@ -5,6 +5,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Random;
+import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,14 +29,15 @@ public class Controller {
         }
     }
     
-    public void LerBanco(String equipe1, String equipe2) throws SQLException{
+    public boolean Simular(String equipe1, String equipe2) throws SQLException{
         
         System.out.println(equipe1);
         System.out.println(equipe2);
+        boolean vencedor = true;
         
         if(equipe1.equals(equipe2)){
             JOptionPane.showMessageDialog(null, "Não escolha 2 seleções iguais seu doente mental", "Alerta", JOptionPane.ERROR_MESSAGE);
-            return;
+            return false;
         }
         
         try (Connection con = new ConnectionFactory().getConnection()) {
@@ -77,26 +84,18 @@ public class Controller {
             float total_2 = (float) ((media_2 * 0.7) + ((100 - ranking2) * 0.3));
             
             
-            /*
-            if(media_1 >= media_2){
-                JOptionPane.showMessageDialog(null, equipe1+" vence!");
-                System.out.println(equipe1+ " vence!");
-            }
-            else{
-                JOptionPane.showMessageDialog(null, equipe2+" vence!");
-                System.out.println(equipe2+ " vence!");
-            }
-            */
             System.out.println("Total "+equipe1+":. "+total_1);
             System.out.println("Total "+equipe2+":. "+total_2);
             
-            if(total_1 >= total_2){
+            //15% de aleatoriedade
+            if(total_1 >= total_2 && !Zebra()){
                 JOptionPane.showMessageDialog(null, equipe1+" vence!");    
                 System.out.println(equipe1+ " vence!");
             }
             else{
                 JOptionPane.showMessageDialog(null, equipe2+" vence!");
                 System.out.println(equipe2+ " vence!");
+                vencedor = false;
             }
             
             System.out.println("Media dos jogadores "+equipe1+":. "+media_1);
@@ -110,5 +109,96 @@ public class Controller {
             System.out.println("ERRO!"+ ex);
         }
         
+        return vencedor;
     }
+    
+    public boolean Zebra(){
+        //Random ran = new Random();
+        int x = new Random().nextInt(101);
+        if(x > 85)
+            System.out.println("ZEBRA!");
+        //15% de aleatoriedade
+        return (x > 85);
+        
+        
+    }
+    
+
+    public static <K, V extends Comparable<? super V>> Map<K, V> ordenarInversamente
+        (Map<K, V> map) {
+        return map.entrySet()
+            .stream()
+            .sorted(Map.Entry.<K, V> comparingByValue().reversed())
+            // Type here -----^ reversed() here -------^
+            .collect(Collectors.toMap(
+                    Map.Entry::getKey,
+                    Map.Entry::getValue,
+                    (e1, e2) -> e1,
+                    LinkedHashMap::new
+            ));
+    }
+
+    
+    
+    //Retorna uma lista com os 2 primeiros colocados
+    public ArrayList<String> grupoA() throws SQLException{
+        
+        //Russia, Arábia Saudita, Egito, Uruguai
+        int rus = 0, asd = 0, egi = 0, uru = 0;
+        
+        /*-----------------------------*/
+        if(Simular("Russia", "Saudi Arabia"))
+            rus+=3;
+        else
+            asd+=3;
+        /*-----------------------------*/
+        /*-----------------------------*/
+        if(Simular("Russia", "Egypt"))
+            rus+=3;
+        else
+            egi+=3;
+        /*-----------------------------*/
+        /*-----------------------------*/
+        if(Simular("Russia", "Uruguay"))
+            rus+=3;
+        else
+            uru+=3;
+        /*-----------------------------*/
+        /*-----------------------------*/
+        if(Simular("Egypt", "Saudi Arabia"))
+            egi+=3;
+        else
+            asd+=3;
+        /*-----------------------------*/
+        /*-----------------------------*/
+        if(Simular("Uruguay", "Saudi Arabia"))
+            uru+=3;
+        else
+            asd+=3;
+        /*-----------------------------*/
+        /*-----------------------------*/
+        if(Simular("Egypt", "Uruguay"))
+            egi+=3;
+        else
+            uru+=3;
+        /*-----------------------------*/
+        
+        Map<String,Integer> classificacao = new HashMap<String, Integer>();
+        classificacao.put("Russia", rus);
+        classificacao.put("Saudi Arabia", asd);
+        classificacao.put("Egypt", egi);
+        classificacao.put("Uruguay", uru);
+        
+        Map<String,Integer> classificacaoFinal = ordenarInversamente(classificacao);
+        
+        ArrayList<String> classificados = new ArrayList<>();
+        classificados.add(classificacao.entrySet().iterator().next().getKey());
+        classificacaoFinal.remove(classificacao.entrySet().iterator().next().getKey());
+        classificados.add(classificacao.entrySet().iterator().next().getKey());
+        
+        return classificados;
+    }
+    
+    
+
 }
